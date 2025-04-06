@@ -2,6 +2,7 @@ package com.MovieBookingSystem.MovieBookingSystem.Controller;
 
 import com.MovieBookingSystem.MovieBookingSystem.Entity.User;
 import com.MovieBookingSystem.MovieBookingSystem.Service.UserService;
+import com.MovieBookingSystem.MovieBookingSystem.Util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,9 @@ public class UserController {
     @Autowired
     AuthenticationManager authMgr;
 
+    @Autowired
+    JWTUtil jwtUtil;
+
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) throws Exception {
         userService.registerUser(user);
@@ -29,6 +33,7 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@RequestBody User user) throws Exception {
         Authentication auth = authMgr.authenticate(new UsernamePasswordAuthenticationToken(user.getEmailId(),user.getPassword()));
-        return "Login Successful";
+        String token = jwtUtil.generateToken(user.getEmailId());
+        return token;
     }
 }

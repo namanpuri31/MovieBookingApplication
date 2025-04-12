@@ -19,15 +19,15 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // this encoder will be used
+        return new BCryptPasswordEncoder(); // this encoder will be used for hashing
     }
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authBuilder.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-        return authBuilder.build();
+                .passwordEncoder(passwordEncoder());// to tell spring which hasing alog is used for encoding the password
+        return authBuilder.build();//returns the authenication manager object built by authbuilder which is present in httpsecurity context
     }
 
     @Bean
@@ -39,7 +39,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable());
-
         return http.build();
     }
 }

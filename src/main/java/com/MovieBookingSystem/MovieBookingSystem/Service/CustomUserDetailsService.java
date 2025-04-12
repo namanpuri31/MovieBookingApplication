@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(
                     user.getEmailId(),
                     user.getPassword(), // ← hashed password from DB
-                    new ArrayList<>()
+                    new ArrayList<>()// we can pass if we have any roles for the user
             );
         }
         return null;

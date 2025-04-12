@@ -1,9 +1,8 @@
 package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "users")
@@ -11,6 +10,9 @@ public class User {
     @Id
     private String emailId;
     private String password;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     public String getEmailId() {
 

@@ -3,12 +3,14 @@ package com.MovieBookingSystem.MovieBookingSystem.Service;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.User;
 import com.MovieBookingSystem.MovieBookingSystem.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,11 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findById(username).orElseThrow(()->new UsernameNotFoundException("No User Found"));
-        if(user!=null){
+        if(user!=null) {
             return new org.springframework.security.core.userdetails.User(
                     user.getEmailId(),
                     user.getPassword(), // ← hashed password from DB
-                    new ArrayList<>()// we can pass if we have any roles for the user
+                    Collections.singleton(new SimpleGrantedAuthority(user.getRole().getRoleName()))// we can pass if we have any roles for the user
             );
         }
         return null;

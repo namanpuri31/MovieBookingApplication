@@ -1,10 +1,10 @@
 package com.MovieBookingSystem.MovieBookingSystem.Repository;
 
-import com.MovieBookingSystem.MovieBookingSystem.Entity.Role;
+import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepo extends JpaRepository<Role,Long> {
-    Role findByRoleName(String roleName);
+public interface MovieRepo extends JpaRepository<Movie,Long> {
+    Movie findByMovieName(String movieName);
 }

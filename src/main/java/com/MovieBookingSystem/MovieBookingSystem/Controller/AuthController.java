@@ -33,7 +33,7 @@ public class AuthController {
     RoleRepo roleRepo;
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) throws Exception {
-        Role role=roleRepo.findByRoleName("USER");
+        Role role=roleRepo.findByRoleName("ROLE_USER");
         user.setRole(role);
         userService.registerUser(user);
         return "User Added";

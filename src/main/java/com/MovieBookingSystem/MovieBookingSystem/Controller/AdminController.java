@@ -18,19 +18,15 @@ public class AdminController {
         movieService.saveMovie(movie);
         return "Movie Added!!";
     }
-    @PostMapping("/update-movie")
-    public String updateMovie(@RequestBody Movie movie){
-        movieService.saveMovie(movie);
-        return "Movie updated!!";
-    }
     @DeleteMapping("/delete-movie/{id}")
     public String deleteMovie(@PathVariable Long id){
         movieService.deleteMovie(id);
         return "Movie deleted";
     }
-    @GetMapping("/find-by-movieid/{id}")
+    @GetMapping("/findby-movieid/{id}")
     public String findMovieById(@PathVariable Long id){
-       return movieService.getMovieById(id).getMovieName();
+
+        return movieService.getMovieById(id).getMovieName();
     }
     @GetMapping("/findall-movie")
     public List<Movie> findAllMovies(){

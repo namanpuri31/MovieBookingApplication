@@ -1,8 +1,10 @@
 package com.MovieBookingSystem.MovieBookingSystem.Controller;
 
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
-import com.MovieBookingSystem.MovieBookingSystem.Repository.MovieRepo;
+import com.MovieBookingSystem.MovieBookingSystem.Entity.Theatre;
 import com.MovieBookingSystem.MovieBookingSystem.Service.MovieService;
+import com.MovieBookingSystem.MovieBookingSystem.Service.TheatreService;
+import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +15,11 @@ import java.util.List;
 public class AdminController {
     @Autowired
     MovieService movieService;
+    @Autowired
+    TheatreService theatreService;
+
     @PostMapping("/save-movie")
-    public String saveMovie(@RequestBody Movie movie){
+    public String saveMovie(@RequestBody MovieDTO movie){
         movieService.saveMovie(movie);
         return "Movie Added!!";
     }
@@ -31,5 +36,25 @@ public class AdminController {
     @GetMapping("/findall-movie")
     public List<Movie> findAllMovies(){
         return movieService.getAllMovies();
+    }
+    // Theatre CRUD
+
+    @PostMapping("/save-theatre")
+    public String saveTheatre(@RequestBody Theatre th){
+        theatreService.addTheater(th);
+        return "Theatre added";
+    }
+    @DeleteMapping("/delete-theatre/{id}")
+    public String deleteTheatre(@PathVariable Long id){
+        theatreService.removeTheatre(id);
+        return "Theatre deleted";
+    }
+    @GetMapping("findby-theatreid/{id}")
+    public Theatre findTheatreById(@PathVariable Long id){
+        return theatreService.getTheatre(id);
+    }
+    @GetMapping("/findall-theatre")
+    public List<Theatre> findAllTheatre(){
+        return theatreService.getAllTheatre();
     }
 }

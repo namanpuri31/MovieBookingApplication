@@ -2,6 +2,7 @@ package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,14 +12,9 @@ public class Theatre {
     private Long theatreId;
 
     private String theatreName;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "theatre_movie",
-            joinColumns = @JoinColumn(name = "theatre_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    private Set<Movie> movies;
+    private String location;
+    @OneToMany(mappedBy = "theatre",cascade = CascadeType.ALL)
+    private List<TheatreRoom> rooms;
 
     public Long getTheatreId() {
         return theatreId;
@@ -36,11 +32,19 @@ public class Theatre {
         this.theatreName = theatreName;
     }
 
-    public Set<Movie> getMovies() {
-        return movies;
+    public String getLocation() {
+        return location;
     }
 
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public List<TheatreRoom> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<TheatreRoom> rooms) {
+        this.rooms = rooms;
     }
 }

@@ -2,6 +2,7 @@ package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,8 +12,10 @@ public class Movie {
     private Long movieId;
 
     private String movieName;
-    @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY)
-    private Set<Theatre> theatres;
+    private int durationInMinutes;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Show> shows;
 
     public Long getMovieId() {
         return movieId;
@@ -30,11 +33,19 @@ public class Movie {
         this.movieName = movieName;
     }
 
-    public Set<Theatre> getTheatres() {
-        return theatres;
+    public int getDurationInMinutes() {
+        return durationInMinutes;
     }
 
-    public void setTheatres(Set<Theatre> theatres) {
-        this.theatres = theatres;
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
     }
 }

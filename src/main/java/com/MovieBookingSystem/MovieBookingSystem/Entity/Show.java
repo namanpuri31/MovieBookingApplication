@@ -8,23 +8,21 @@ import java.util.List;
 @Entity
 public class Show {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long showId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     @ManyToOne
     private Movie movie;
     @ManyToOne
     private TheatreRoom room;
-    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
-    private List<Seat> seats;
 
     public Long getId() {
-        return id;
+        return showId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.showId = id;
     }
 
     public LocalDateTime getStartTime() {
@@ -57,13 +55,5 @@ public class Show {
 
     public void setRoom(TheatreRoom room) {
         this.room = room;
-    }
-
-    public List<Seat> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
     }
 }

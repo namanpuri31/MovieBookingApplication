@@ -8,7 +8,7 @@ import java.util.List;
 public class TheatreRoom {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long theatreRoomId;
     @ManyToOne
     private Theatre theatre;
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)

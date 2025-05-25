@@ -42,7 +42,7 @@ public class ShowService {
 
         Show show = showRepo.save(s);
 
-        List<Seat> seats = seatRepo.findByTheatreRoom(theatreRoom);
+        List<Seat> seats = seatRepo.findByRoom(theatreRoom);
         List<SeatAvailability> availabilityList = new ArrayList<>();
 
         for (Seat seat : seats) {

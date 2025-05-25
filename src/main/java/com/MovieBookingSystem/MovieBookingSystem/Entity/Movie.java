@@ -12,10 +12,7 @@ public class Movie {
     private Long movieId;
 
     private String movieName;
-    private int durationInMinutes;
-
-    @OneToMany(mappedBy = "movie")
-    private List<Show> shows;
+    private Integer durationInMinutes;
 
     public Long getMovieId() {
         return movieId;
@@ -39,13 +36,5 @@ public class Movie {
 
     public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
-    }
-
-    public List<Show> getShows() {
-        return shows;
-    }
-
-    public void setShows(List<Show> shows) {
-        this.shows = shows;
     }
 }

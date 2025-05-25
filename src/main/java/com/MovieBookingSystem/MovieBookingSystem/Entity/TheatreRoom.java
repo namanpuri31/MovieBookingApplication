@@ -7,9 +7,10 @@ import java.util.List;
 @Entity
 public class TheatreRoom {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long theatreRoomId;
     @ManyToOne
+    @JoinColumn(name="theatre_id")
     private Theatre theatre;
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Seat> seats;
@@ -18,11 +19,11 @@ public class TheatreRoom {
     private List<Show> shows;
 
     public Long getId() {
-        return id;
+        return theatreRoomId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.theatreRoomId = id;
     }
 
     public Theatre getTheatre() {

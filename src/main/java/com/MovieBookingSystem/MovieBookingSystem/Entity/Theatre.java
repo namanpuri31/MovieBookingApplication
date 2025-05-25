@@ -13,6 +13,7 @@ public class Theatre {
 
     private String theatreName;
     private String location;
+
     @OneToMany(mappedBy = "theatre",cascade = CascadeType.ALL)
     private List<TheatreRoom> rooms;
 

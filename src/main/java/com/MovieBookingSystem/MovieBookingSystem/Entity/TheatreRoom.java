@@ -15,7 +15,7 @@ public class TheatreRoom {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Seat> seats;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
     private List<Show> shows;
 
     public Long getId() {

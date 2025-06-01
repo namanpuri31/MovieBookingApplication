@@ -2,6 +2,8 @@ package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Seat {
     @Id
@@ -12,6 +14,9 @@ public class Seat {
 
     @ManyToOne
     private TheatreRoom room;
+
+    @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SeatAvailability> seatAvailabilities;
 
     public Long getId() {
         return seatId;

@@ -2,6 +2,7 @@ package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,9 @@ public class Movie {
 
     private String movieName;
     private Integer durationInMinutes;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Show> shows;
 
     public Long getMovieId() {
         return movieId;
@@ -36,5 +40,13 @@ public class Movie {
 
     public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
+    }
+
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
     }
 }

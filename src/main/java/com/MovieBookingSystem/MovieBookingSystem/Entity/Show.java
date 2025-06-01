@@ -13,9 +13,15 @@ public class Show {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     @ManyToOne
+    @JoinColumn(name = "movie_id")
     private Movie movie;
+
     @ManyToOne
+    @JoinColumn(name = "room_id")
     private TheatreRoom room;
+
+    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SeatAvailability> seatAvailabilities;
 
     public Long getId() {
         return showId;

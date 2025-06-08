@@ -19,7 +19,21 @@ public class SeatAvailabilityId implements Serializable {
         this.seatId = seatId;
     }
 
-    // Getters and Setters
+    public Long getShowId() {
+        return showId;
+    }
+
+    public void setShowId(Long showId) {
+        this.showId = showId;
+    }
+
+    public Long getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(Long seatId) {
+        this.seatId = seatId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -35,5 +49,6 @@ public class SeatAvailabilityId implements Serializable {
         return Objects.hash(showId, seatId);
     }
 }
+
 
 

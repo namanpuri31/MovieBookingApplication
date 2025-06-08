@@ -1,13 +1,20 @@
 package com.MovieBookingSystem.MovieBookingSystem.Util;
 
-import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
-import com.MovieBookingSystem.MovieBookingSystem.Entity.TheatreRoom;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
-public class ShowDTO {
+public class UpdateShowDTO {
+    Long showDTOid;
+
+    public Long getShowDTOid() {
+        return showDTOid;
+    }
+
+    public void setShowDTOid(Long showDTOid) {
+        this.showDTOid = showDTOid;
+    }
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startTime;
 
@@ -49,6 +56,4 @@ public class ShowDTO {
     public void setRoom(Long room) {
         this.room = room;
     }
-
-
 }

@@ -4,8 +4,16 @@ import java.util.List;
 
 public class MovieDTO {
     String movieName;
-    List<Long> theatres;
+    Integer duration;
+    public int getDuration() {
+        return duration;
+    }
 
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    //    List<Long> theatres;
     public String getMovieName() {
         return movieName;
     }
@@ -14,11 +22,11 @@ public class MovieDTO {
         this.movieName = movieName;
     }
 
-    public List<Long> getTheatres() {
-        return theatres;
-    }
-
-    public void setTheatres(List<Long> theatres) {
-        this.theatres = theatres;
-    }
+//    public List<Long> getTheatres() {
+//        return theatres;
+//    }
+//
+//    public void setTheatres(List<Long> theatres) {
+//        this.theatres = theatres;
+//    }
 }

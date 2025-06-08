@@ -1,12 +1,14 @@
 package com.MovieBookingSystem.MovieBookingSystem.Controller;
 
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
+import com.MovieBookingSystem.MovieBookingSystem.Entity.Show;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Theatre;
 import com.MovieBookingSystem.MovieBookingSystem.Service.MovieService;
 import com.MovieBookingSystem.MovieBookingSystem.Service.ShowService;
 import com.MovieBookingSystem.MovieBookingSystem.Service.TheatreService;
 import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
 import com.MovieBookingSystem.MovieBookingSystem.Util.ShowDTO;
+import com.MovieBookingSystem.MovieBookingSystem.Util.UpdateShowDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,5 +67,22 @@ public class AdminController {
     public String saveShow(@RequestBody ShowDTO show){
         showService.addShow(show);
         return "Show added";
+    }
+    @PutMapping("/update-show")
+    public String updateShow(@RequestBody UpdateShowDTO updateShowDTO){
+        return showService.updateShow(updateShowDTO);
+    }
+    @DeleteMapping("/delete-show/{id}")
+    public String deleteShow(@PathVariable Long id){
+        return showService.deleteShow(id);
+    }
+    @GetMapping("/get-All-shows")
+    public List<Show> getAllShows(){
+        return showService.getAllShows();
+    }
+
+    @GetMapping("/get-show/{id}")
+    public Show getShowById(@PathVariable Long id){
+        return showService.getShowById(id);
     }
 }

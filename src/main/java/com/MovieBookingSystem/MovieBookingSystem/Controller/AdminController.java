@@ -1,9 +1,11 @@
 package com.MovieBookingSystem.MovieBookingSystem.Controller;
 
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
+import com.MovieBookingSystem.MovieBookingSystem.Entity.SeatAvailability;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Show;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Theatre;
 import com.MovieBookingSystem.MovieBookingSystem.Service.MovieService;
+import com.MovieBookingSystem.MovieBookingSystem.Service.SeatAvailabilityService;
 import com.MovieBookingSystem.MovieBookingSystem.Service.ShowService;
 import com.MovieBookingSystem.MovieBookingSystem.Service.TheatreService;
 import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
@@ -23,6 +25,9 @@ public class AdminController {
     TheatreService theatreService;
     @Autowired
     ShowService showService;
+
+    @Autowired
+    private SeatAvailabilityService seatAvailabilityService;
 
     @PostMapping("/save-movie")
     public String saveMovie(@RequestBody MovieDTO movie){
@@ -84,5 +89,10 @@ public class AdminController {
     @GetMapping("/get-show/{id}")
     public Show getShowById(@PathVariable Long id){
         return showService.getShowById(id);
+    }
+
+    @GetMapping("/seat-availability")
+    public List<SeatAvailability> getSeatAvailability(){
+        return seatAvailabilityService.getSeatAvailability();
     }
 }

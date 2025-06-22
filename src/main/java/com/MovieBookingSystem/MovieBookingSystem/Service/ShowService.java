@@ -54,6 +54,13 @@ public class ShowService {
             sa.setShow(show);
             sa.setSeat(seat);
             sa.setStatus("AVAILABLE");
+
+
+            SeatAvailabilityId id = new SeatAvailabilityId();
+            id.setShowId(show.getId());
+            id.setSeatId(seat.getId());
+            sa.setId(id);
+
             availabilityList.add(sa);
         }
 

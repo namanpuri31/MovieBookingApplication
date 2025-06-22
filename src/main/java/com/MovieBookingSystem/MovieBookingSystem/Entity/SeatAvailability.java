@@ -1,9 +1,6 @@
 package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.*;
 
 @Entity
 public class SeatAvailability {
@@ -12,10 +9,12 @@ public class SeatAvailability {
 
     @ManyToOne
     @MapsId("showId")
+    @JoinColumn(name = "show_id")  // Tell JPA: "Use this column"
     private Show show;
 
     @ManyToOne
     @MapsId("seatId")
+    @JoinColumn(name = "seat_id")  // Tell JPA: "Use this column"
     private Seat seat;
 
     private String status;

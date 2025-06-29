@@ -9,12 +9,14 @@ import com.MovieBookingSystem.MovieBookingSystem.Service.SeatAvailabilityService
 import com.MovieBookingSystem.MovieBookingSystem.Service.ShowService;
 import com.MovieBookingSystem.MovieBookingSystem.Service.TheatreService;
 import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
+import com.MovieBookingSystem.MovieBookingSystem.Util.SeatAvailabilityDTO;
 import com.MovieBookingSystem.MovieBookingSystem.Util.ShowDTO;
 import com.MovieBookingSystem.MovieBookingSystem.Util.UpdateShowDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
@@ -92,7 +94,13 @@ public class AdminController {
     }
 
     @GetMapping("/seat-availability")
-    public List<SeatAvailability> getSeatAvailability(){
-        return seatAvailabilityService.getSeatAvailability();
+    public List<SeatAvailabilityDTO> getSeatAvailability(){
+        List<SeatAvailability> availabilities= seatAvailabilityService.getSeatAvailability();
+        return availabilities.stream().map(sa -> new SeatAvailabilityDTO(
+                sa.getShow().getId(),
+                sa.getSeat().getId(),
+                sa.getStatus()
+        )).collect(Collectors.toList());
+
     }
 }

@@ -13,11 +13,9 @@ public class TheatreService {
     TheatreRepo theatreRepo;
     public void addTheater(Theatre th){
         theatreRepo.save(th);
-        return;
     }
     public void removeTheatre(Long id){
         theatreRepo.deleteById(id);
-        return;
     }
     public Theatre getTheatre(Long id){
         return theatreRepo.findById(id).orElseThrow(()->new RuntimeException("Cant find a Theatre by the provided Theatre ID"));

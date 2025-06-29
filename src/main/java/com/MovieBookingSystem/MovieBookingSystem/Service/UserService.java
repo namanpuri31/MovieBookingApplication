@@ -17,7 +17,6 @@ public class UserService {
         try{
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(user);
-            return;
         }
         catch(Exception exp){
             throw new Exception(exp);

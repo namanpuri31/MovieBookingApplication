@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class ShowService {
@@ -83,8 +82,7 @@ public class ShowService {
         return "show is updated";
     }
     public List<Show> getAllShows(){
-        List<Show> shows=showRepo.findAll();
-        return shows;
+        return showRepo.findAll();
     }
     public Show getShowById(Long id){
          return showRepo.findById(id).orElseThrow(()->new RuntimeException("Cant find the show with the provided ID"));

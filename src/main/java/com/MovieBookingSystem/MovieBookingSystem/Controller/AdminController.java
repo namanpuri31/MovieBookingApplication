@@ -4,10 +4,7 @@ import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.SeatAvailability;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Show;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Theatre;
-import com.MovieBookingSystem.MovieBookingSystem.Service.MovieService;
-import com.MovieBookingSystem.MovieBookingSystem.Service.SeatAvailabilityService;
-import com.MovieBookingSystem.MovieBookingSystem.Service.ShowService;
-import com.MovieBookingSystem.MovieBookingSystem.Service.TheatreService;
+import com.MovieBookingSystem.MovieBookingSystem.Service.*;
 import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
 import com.MovieBookingSystem.MovieBookingSystem.Util.SeatAvailabilityDTO;
 import com.MovieBookingSystem.MovieBookingSystem.Util.ShowDTO;
@@ -27,6 +24,8 @@ public class AdminController {
     TheatreService theatreService;
     @Autowired
     ShowService showService;
+    @Autowired
+    SeatBookingService seatBookingService;
 
     @Autowired
     private SeatAvailabilityService seatAvailabilityService;
@@ -102,5 +101,10 @@ public class AdminController {
                 sa.getStatus()
         )).collect(Collectors.toList());
 
+    }
+
+    @PostMapping("/seat-book/")
+    public String BookSeat(@RequestBody SeatAvailabilityDTO seatData){
+        return seatBookingService.bookSeat(seatData.getShowId(),seatData.getSeatId());
     }
 }

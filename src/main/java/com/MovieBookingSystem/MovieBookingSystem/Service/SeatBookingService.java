@@ -17,23 +17,24 @@ public class SeatBookingService {
     @Autowired
     private SeatAvailabilityRepo seatAvailabilityRepository;
 
-    public void bookSeat(Long showId, Long seatId) {
+    public String bookSeat(Long showId, Long seatId) {
         String lockKey = "lock:seat:" + showId + ":" + seatId;
         RLock lock = redissonClient.getLock(lockKey);
 
         try {
-            boolean locked = lock.tryLock(3, 2, TimeUnit.MINUTES); // wait 5s max, hold for 10s
+            boolean locked = lock.tryLock(5, 40, TimeUnit.SECONDS); // wait 5s max, hold for 10s
             if (!locked) {
                 throw new RuntimeException("Seat is currently being booked by someone else.");
             }
 
             SeatAvailability sa = seatAvailabilityRepository.findByShowIdAndSeatId(showId, seatId);
             if (!"AVAILABLE".equals(sa.getStatus())) {
-                throw new RuntimeException("Seat already booked.");
+                return "Seat is already booked";
             }
 
             sa.setStatus("BOOKED");
             seatAvailabilityRepository.save(sa);
+            return "Seat Booked";
 
             // Optionally update cache here
         } catch (InterruptedException e) {

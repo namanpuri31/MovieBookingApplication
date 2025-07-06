@@ -5,6 +5,7 @@ import com.MovieBookingSystem.MovieBookingSystem.Repository.SeatAvailabilityRepo
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +17,8 @@ public class SeatBookingService {
 
     @Autowired
     private SeatAvailabilityRepo seatAvailabilityRepository;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     public String bookSeat(Long showId, Long seatId) {
         String lockKey = "lock:seat:" + showId + ":" + seatId;
@@ -34,6 +37,12 @@ public class SeatBookingService {
 
             sa.setStatus("BOOKED");
             seatAvailabilityRepository.save(sa);
+
+            String redisKey = "seat_availability_cache";
+            String redisField = showId + ":" + seatId;
+
+            redisTemplate.opsForHash().put(redisKey, redisField, "BOOKED");
+
             return "Seat Booked";
 
             // Optionally update cache here

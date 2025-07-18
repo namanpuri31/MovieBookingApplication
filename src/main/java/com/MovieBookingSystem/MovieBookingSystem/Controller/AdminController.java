@@ -1,9 +1,11 @@
 package com.MovieBookingSystem.MovieBookingSystem.Controller;
 
+import static com.MovieBookingSystem.MovieBookingSystem.Constants.AllConstants.*;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Movie;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.SeatAvailability;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Show;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Theatre;
+import com.MovieBookingSystem.MovieBookingSystem.Mapper.Mapping;
 import com.MovieBookingSystem.MovieBookingSystem.Service.*;
 import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
 import com.MovieBookingSystem.MovieBookingSystem.Util.SeatAvailabilityDTO;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+    @Autowired
+    Mapping mapper;
     @Autowired
     MovieService movieService;
     @Autowired
@@ -96,15 +100,16 @@ public class AdminController {
     public List<SeatAvailabilityDTO> getSeatAvailability(){
         List<SeatAvailability> availabilities= seatAvailabilityService.getSeatAvailability();
         return availabilities.stream().map(sa -> new SeatAvailabilityDTO(
-                sa.getShow().getId(),
-                sa.getSeat().getId(),
+                sa.getId().getShowId(),
+                sa.getId().getSeatId(),
                 sa.getStatus()
         )).collect(Collectors.toList());
 
     }
 
     @PostMapping("/seat-book/")
-    public String BookSeat(@RequestBody SeatAvailabilityDTO seatData){
-        return seatBookingService.bookSeat(seatData.getShowId(),seatData.getSeatId());
+    public String BookSeat(@RequestBody SeatAvailabilityDTO seatData) {
+        mapper.routeToService(seatData, BOOKING_CONSTANT);
+        return "Seat booked!";
     }
 }

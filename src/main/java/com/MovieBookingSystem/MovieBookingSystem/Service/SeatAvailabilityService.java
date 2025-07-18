@@ -48,7 +48,7 @@ public class SeatAvailabilityService {
 
         // ✅ Step 2: Store each record in Redis hash
         for (SeatAvailability seat : allSeats) {
-            String fieldKey = seat.getShow().getId()+ ":" + seat.getSeat().getId();
+            String fieldKey = seat.getId().getShowId()+ ":" + seat.getId().getSeatId();
             hashOps.put(REDIS_KEY, fieldKey, seat.getStatus());
         }
         return allSeats;

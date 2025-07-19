@@ -7,11 +7,14 @@ import com.MovieBookingSystem.MovieBookingSystem.Service.CustomUserDetailsServic
 import com.MovieBookingSystem.MovieBookingSystem.Service.UserService;
 import com.MovieBookingSystem.MovieBookingSystem.Util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,14 +44,19 @@ public class AuthController {
 
     @PostMapping("/login")
     public String loginUser(@RequestBody User user) throws Exception {
-        Authentication auth = authMgr.authenticate(new UsernamePasswordAuthenticationToken(user.getEmailId(),user.getPassword()));
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmailId());
-        String role = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .findFirst() // Get the first (and only) role
-                .orElseThrow(() -> new Exception("No role assigned to the user"));
+        try {
+            Authentication auth = authMgr.authenticate(new UsernamePasswordAuthenticationToken(user.getEmailId(), user.getPassword()));
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmailId());
+            String role = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .findFirst() // Get the first (and only) role
+                    .orElseThrow(() -> new Exception("No role assigned to the user"));
 
-        String token = jwtUtil.generateToken(user.getEmailId(),role);
-        return token;
+            String token = jwtUtil.generateToken(user.getEmailId(), role);
+            return token;
+        }
+        catch (UsernameNotFoundException e) {
+            return "User not found. Please register first.";
+        }
     }
 }

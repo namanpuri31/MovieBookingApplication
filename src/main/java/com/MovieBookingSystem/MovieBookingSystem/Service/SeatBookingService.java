@@ -1,0 +1,57 @@
+package com.MovieBookingSystem.MovieBookingSystem.Service;
+
+import com.MovieBookingSystem.MovieBookingSystem.Entity.SeatAvailability;
+import com.MovieBookingSystem.MovieBookingSystem.Repository.SeatAvailabilityRepo;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import java.util.concurrent.TimeUnit;
+
+@Service
+public class SeatBookingService {
+
+    @Autowired
+    private RedissonClient redissonClient;
+
+    @Autowired
+    private SeatAvailabilityRepo seatAvailabilityRepository;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    public String bookSeat(Long showId, Long seatId) {
+        String lockKey = "lock:seat:" + showId + ":" + seatId;
+        RLock lock = redissonClient.getLock(lockKey);
+
+        try {
+            boolean locked = lock.tryLock(5, 40, TimeUnit.SECONDS); // wait 5s max, hold for 10s
+            if (!locked) {
+                throw new RuntimeException("Seat is currently being booked by someone else.");
+            }
+
+            SeatAvailability sa = seatAvailabilityRepository.findByShowIdAndSeatId(showId, seatId);
+            if (!"AVAILABLE".equals(sa.getStatus())) {
+                return "Seat is already booked";
+            }
+
+            sa.setStatus("BOOKED");
+            seatAvailabilityRepository.save(sa);
+
+            String redisKey = "seat_availability_cache";
+            String redisField = showId + ":" + seatId;
+
+            redisTemplate.opsForHash().put(redisKey, redisField, "BOOKED");
+
+            return "Seat Booked";
+
+            // Optionally update cache here
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Interrupted while trying to lock seat", e);
+        } finally {
+            if (lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+        }
+    }
+}

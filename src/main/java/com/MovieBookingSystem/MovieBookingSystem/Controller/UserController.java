@@ -3,6 +3,7 @@ import com.MovieBookingSystem.MovieBookingSystem.Entity.SeatAvailability;
 import com.MovieBookingSystem.MovieBookingSystem.Service.SeatAvailabilityService;
 import com.MovieBookingSystem.MovieBookingSystem.Service.SeatBookingService;
 import com.MovieBookingSystem.MovieBookingSystem.Util.SeatAvailabilityDTO;
+import com.MovieBookingSystem.MovieBookingSystem.Util.SeatBookingDTO;
 import org.springframework.web.bind.annotation.*;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.User;
 import com.MovieBookingSystem.MovieBookingSystem.Service.UserService;
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/seat-book/")
-    public String BookSeat(@RequestBody SeatAvailabilityDTO seatData){
-        return seatBookingService.bookSeat(seatData.getShowId(),seatData.getSeatId());
+    public String BookSeat(@RequestBody SeatBookingDTO seatData){
+        return seatBookingService.reserveSeatAndPay(seatData.getShowId(),seatData.getSeatId(),seatData.getUserId());
     }
 }

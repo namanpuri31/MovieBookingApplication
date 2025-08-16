@@ -1,17 +1,19 @@
 package com.MovieBookingSystem.MovieBookingSystem.Util;
 
-public class SeatAvailabilityDTO {
+public class SeatBookingDTO {
     private Long showId;
     private Long seatId;
     private String status;
 
-    public SeatAvailabilityDTO(Long showId, Long seatId, String status) {
+    private String userId;
+
+    public SeatBookingDTO(Long showId, Long seatId, String status, String userId) {
         this.showId = showId;
         this.seatId = seatId;
         this.status = status;
+        this.userId = userId;
     }
 
-    // Getters and Setters
     public Long getShowId() {
         return showId;
     }
@@ -36,5 +38,11 @@ public class SeatAvailabilityDTO {
         this.status = status;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

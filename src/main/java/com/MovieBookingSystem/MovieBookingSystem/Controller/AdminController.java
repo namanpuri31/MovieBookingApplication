@@ -7,10 +7,7 @@ import com.MovieBookingSystem.MovieBookingSystem.Entity.Show;
 import com.MovieBookingSystem.MovieBookingSystem.Entity.Theatre;
 import com.MovieBookingSystem.MovieBookingSystem.Mapper.Mapping;
 import com.MovieBookingSystem.MovieBookingSystem.Service.*;
-import com.MovieBookingSystem.MovieBookingSystem.Util.MovieDTO;
-import com.MovieBookingSystem.MovieBookingSystem.Util.SeatAvailabilityDTO;
-import com.MovieBookingSystem.MovieBookingSystem.Util.ShowDTO;
-import com.MovieBookingSystem.MovieBookingSystem.Util.UpdateShowDTO;
+import com.MovieBookingSystem.MovieBookingSystem.Util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,7 +105,7 @@ public class AdminController {
     }
 
     @PostMapping("/seat-book/")
-    public String BookSeat(@RequestBody SeatAvailabilityDTO seatData) {
+    public String BookSeat(@RequestBody SeatBookingDTO seatData) {
         mapper.routeToService(seatData, BOOKING_CONSTANT);
         return "Seat booked!";
     }

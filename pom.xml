@@ -113,9 +113,9 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.razorpay</groupId>
-			<artifactId>razorpay-java</artifactId>
-			<version>1.4.4</version> <!-- Latest as of now -->
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>24.8.0</version> <!-- latest stable -->
 		</dependency>
 
 		<!-- JSON library -->

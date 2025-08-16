@@ -1,30 +1,31 @@
 package com.MovieBookingSystem.MovieBookingSystem.Service;
 
-import com.razorpay.Order;
-import com.razorpay.RazorpayClient;
-import com.razorpay.RazorpayException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.stripe.Stripe;
+import com.stripe.model.PaymentIntent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
+import com.stripe.exception.StripeException;
 
 @Service
 public class PaymentGatewayService {
-    private final RazorpayClient razorpayClient;
+    @Value("${stripe.secret.key}")
+    private String stripeSecretKey;
 
-    @Autowired
-    public PaymentGatewayService() throws RazorpayException {
-        this.razorpayClient = new RazorpayClient("YOUR_API_KEY", "YOUR_SECRET_KEY");
+    public PaymentGatewayService() {
+        Stripe.apiKey = stripeSecretKey; // test secret key from Stripe dashboard
     }
 
-    public String createPaymentOrder(double amount) throws RazorpayException {
-        JSONObject options = new JSONObject();
-        options.put("amount", (int)(amount * 100)); // amount in paise
-        options.put("currency", "INR");
-        options.put("receipt", UUID.randomUUID().toString());
+    public String createPaymentIntent(double amount) throws StripeException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("amount", (int)(amount * 100)); // amount in cents
+        params.put("currency", "inr"); // or "inr"
+        params.put("automatic_payment_methods", Map.of("enabled", true));
 
-        Order order = razorpayClient.orders.create(options);
-        return order.get("id");
+        PaymentIntent paymentIntent = PaymentIntent.create(params);
+        return paymentIntent.getClientSecret();
     }
+
 }

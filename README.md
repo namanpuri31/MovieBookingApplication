@@ -51,7 +51,7 @@ A backend-focused Movie Booking Application built with Java and Spring Boot. Thi
    mvn spring-boot:run
    ```
 
-## Example API Endpoints
+## API Endpoints
 
 - `POST /admin/save-movie` — Add or update a movie
 - `DELETE /admin/delete-movie/{id}` — Delete a movie

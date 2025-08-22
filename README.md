@@ -33,7 +33,7 @@ A backend-focused Movie Booking Application built with Java and Spring Boot. Thi
 - Maven
 - Redis server running
 - RabbitMQ server running
-- (Database, e.g., MySQL/PostgreSQL, as per your JPA setup)
+- Database PostgreSQL
 
 ### Setup & Run
 
@@ -59,7 +59,7 @@ A backend-focused Movie Booking Application built with Java and Spring Boot. Thi
 - `POST /admin/save-theatre` — Add a theatre
 - `GET /admin/get-All-shows` — List all shows
 - `GET /admin/seat-availability` — Get seat availability for all shows
-- `POST /admin/seat-book/` — Book a seat
+- `POST /admin/seat-book/` — Book a seat and payment followed up
 
 ## Performance Optimizations
 

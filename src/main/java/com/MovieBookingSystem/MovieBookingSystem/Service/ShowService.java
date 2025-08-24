@@ -42,6 +42,7 @@ public class ShowService {
         s.setEndTime(showDto.getStartTime().plusMinutes(movie.getDurationInMinutes()));
         s.setRoom(theatreRoom);
         s.setMovie(movie);
+        s.setAmount(showDto.getAmount());
 
         Show show = showRepo.save(s);
 

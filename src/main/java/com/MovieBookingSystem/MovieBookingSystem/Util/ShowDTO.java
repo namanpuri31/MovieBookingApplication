@@ -18,6 +18,16 @@ public class ShowDTO {
 
     private Long room;//roomid
 
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    private Double amount;
+
     public LocalDateTime getStartTime() {
         return startTime;
     }

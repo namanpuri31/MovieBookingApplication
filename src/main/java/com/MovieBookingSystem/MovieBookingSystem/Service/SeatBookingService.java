@@ -30,15 +30,16 @@ public class SeatBookingService {
     public String reserveSeatAndPay(Long showId, Long seatId, String userId) {
         String lockKey = "lock:seat:" + showId + ":" + seatId;
         RLock lock = redissonClient.getLock(lockKey);
-
+        System.out.println("Entered Seat Booking class");
         try {
+            System.out.println("Entered Try block");
             boolean locked = lock.tryLock(5, 10, TimeUnit.SECONDS);
             if (!locked) {
                 throw new RuntimeException("Seat is currently being reserved by someone else.");
             }
             String redisKey = "seat_availability_cache";
             String redisField = showId + ":" + seatId;
-            String currentStatus = (String) redisTemplate.opsForValue().get(redisKey);
+            String currentStatus = (String) redisTemplate.opsForHash().get(redisKey, redisField);
 
             if ("RESERVED".equals(currentStatus)) {
                 return "Seat is already temporarily reserved.";
@@ -64,6 +65,7 @@ public class SeatBookingService {
 
             // 🚨 Auto-confirm here (for testing only)
             boolean mockSuccess = true; // or randomize for failure simulation
+            System.out.println("PaymentOrderID : " + paymentOrderId);
             confirmPayment(paymentOrderId, mockSuccess);
 
             return paymentOrderId;

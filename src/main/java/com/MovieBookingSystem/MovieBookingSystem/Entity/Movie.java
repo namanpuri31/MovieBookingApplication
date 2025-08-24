@@ -1,5 +1,6 @@
 package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Movie {
     private Integer durationInMinutes;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Show> shows;
 
     public Long getMovieId() {

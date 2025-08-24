@@ -1,5 +1,6 @@
 package com.MovieBookingSystem.MovieBookingSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,22 +13,24 @@ public class Show {
     private Long showId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private double amount;
+    private Double amount;
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
+    @JsonBackReference
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonBackReference
     private TheatreRoom room;
 
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL, orphanRemoval = true)

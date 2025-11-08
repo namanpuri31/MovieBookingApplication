@@ -1,6 +1,6 @@
 # MovieBookingApplication
 
-![Architecture Diagram](architecture.png)
+![Architecture Diagram](NewArchitectureDiagram.png)
 
 A backend-focused Movie Booking Application built with Java and Spring Boot. This project demonstrates core movie ticketing concepts such as managing movies, theatres, shows, and seat reservations, and integrates caching and messaging for high performance and resiliency.
 

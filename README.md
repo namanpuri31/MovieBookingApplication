@@ -1,6 +1,8 @@
 # MovieBookingApplication
 
-A backend-focused Movie Booking Application built with Java and Spring Boot. This project demonstrates core movie ticketing concepts such as managing movies, theatres, shows, and seat reservations, with an emphasis on performance and concurrency using Redis caching, message queues, and database indexing.
+![Architecture Diagram](architecture.png)
+
+A backend-focused Movie Booking Application built with Java and Spring Boot. This project demonstrates core movie ticketing concepts such as managing movies, theatres, shows, and seat reservations, and integrates caching and messaging for high performance and resiliency.
 
 ## Features
 
@@ -70,6 +72,7 @@ A backend-focused Movie Booking Application built with Java and Spring Boot. Thi
 ## Message Queue
 
 - **RabbitMQ** is configured for handling asynchronous tasks, making the system extensible for future requirements like notifications or analytics.
+
 ---
 
 *For questions or contributions, please open an issue or submit a pull request.*

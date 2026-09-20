@@ -53,6 +53,22 @@ A backend-focused Movie Booking Application built with Java and Spring Boot. Thi
    mvn spring-boot:run
    ```
 
+## GitHub Actions CI/CD
+
+The workflow in `.github/workflows/ci-cd.yml` runs automatically for pull requests and pushes to `main`.
+
+- Builds and tests the application with Java 21.
+- Starts temporary PostgreSQL, Redis, and RabbitMQ services for the tests.
+- Uploads the built JAR as a GitHub Actions artifact after a successful push to `main`.
+
+To use it:
+
+1. Push this repository to GitHub.
+2. Open the **Actions** tab and select **CI/CD**.
+3. Download the `movie-booking-application` artifact from a successful `main` run.
+
+This is delivery of the packaged application. A real deployment can be added later once a hosting provider and its required GitHub Secrets are chosen.
+
 ## API Endpoints
 
 - `POST /admin/save-movie` — Add or update a movie

@@ -29,7 +29,7 @@ public class BookingConcurrencyTest {
             final int userNumber = i;
             executor.submit(() -> {
                 try {
-                    String result = bookingService.bookSeat(showId, seatId);
+                    String result = bookingService.reserveSeatAndPay(showId, seatId, "test-user-" + userNumber);
                     if (result=="Seat Booked") {
                         System.out.println("✅ Seat booked by user");
                     } else {
